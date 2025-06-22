@@ -23,14 +23,37 @@ public class HibernateApp {
 
         try (SessionFactory sf = cfg.buildSessionFactory();
              Session session = sf.getCurrentSession()) {
-                    session.beginTransaction();
+            session.beginTransaction();
 
-                    System.out.println("Загружаю класс: " + Person.class);
-                    Person person = session.get(Person.class, 1L);
-                    System.out.println(BackgroundColors.BG_GREEN + ConsoleColors.BLACK + person+ ANSI_RESET);
-                    session.getTransaction().commit();
-        } catch (Exception e) {
-            System.out.println(ANSI_GREEN + "Произошла какая то ошибка" + ANSI_RESET);
+            System.out.println("Загружаю класс: " + Person.class);
+            Person person = session.get(Person.class, 1L);
+            System.out.println(BackgroundColors.BG_GREEN + ConsoleColors.BLACK + person + ANSI_RESET);
+            session.getTransaction().commit();
         }
     }
 }
+
+// эта строка завершает транзакцию и сохраняет все изменения в базу данных.
+
+
+//        try (SessionFactory sf = cfg.buildSessionFactory();
+//             Session session = sf.getCurrentSession()) {
+//                    session.beginTransaction();
+//
+//                    System.out.println("Загружаю класс: " + Person.class);
+//                    Person person = session.get(Person.class, 1L);
+//                    System.out.println(BackgroundColors.BG_GREEN + ConsoleColors.BLACK + person+ ANSI_RESET);
+//            //session.getTransaction().commit();
+//        } catch (Exception e) {
+//            System.out.println(ANSI_GREEN + "Произошла какая-то ошибка: " + e.getMessage() + ANSI_RESET);
+//
+//            // Rollback если транзакция всё ещё активна
+//            try {
+//                Session currentSession = HibernateApp.getCurrentSession(); // см. ниже
+//                if (currentSession.getTransaction().isActive()) {
+//                    currentSession.getTransaction().rollback();
+//                }
+//            } catch (Exception rollbackEx) {
+//                System.out.println(ANSI_RED + "Ошибка при rollback: " + rollbackEx.getMessage() + ANSI_RESET);
+//            }
+//        }
