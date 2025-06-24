@@ -34,9 +34,9 @@ public class HibernateApp {
 //                session.persist(person2);
 
                 session.persist(newPerson);
-
                 session.getTransaction().commit();
-            System.out.println(BackgroundColors.BG_GREEN + ConsoleColors.BLACK + newPerson.getId() + ANSI_RESET);
+
+                System.out.println(BackgroundColors.BG_GREEN + ConsoleColors.BLACK + newPerson.getId() + ANSI_RESET);
         }
     }
 }
