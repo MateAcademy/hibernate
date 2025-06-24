@@ -21,7 +21,7 @@ public class HibernateApp {
     public static void main(String[] args) {
         Configuration cfg = new Configuration().addAnnotatedClass(Person.class);
 
-        Person person1 = new Person("Человек1", 5);
+        Person person1 = new Person("1", 50);
         Person person2 = new Person("Человек2", 10);
 
 
@@ -30,10 +30,12 @@ public class HibernateApp {
                 session.beginTransaction();
 
                 System.out.println("Загружаю класс: " + Person.class);
-                session.persist(person1);
-                session.persist(person2);
+//                session.persist(person1);
+//                session.persist(person2);
 
                 Person person = session.get(Person.class, 1L);
+                person.setName("<UNK> <UNK>");
+
                 System.out.println(BackgroundColors.BG_GREEN + ConsoleColors.BLACK + person + ANSI_RESET);
                 session.getTransaction().commit();
         }
