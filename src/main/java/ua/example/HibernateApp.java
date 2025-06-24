@@ -43,7 +43,7 @@ public class HibernateApp {
             session.beginTransaction();
 
             System.out.println("\nИщу людей, чей возраст больше 20...");
-            List<Person> peopleOver20 = session.createQuery("FROM Person p WHERE p.age > 20", Person.class).list();
+            List<Person> peopleOver20 = session.createQuery("FROM Person p WHERE name LIKE 'A%'", Person.class).list();
 
             System.out.println(BackgroundColors.BG_GREEN + ConsoleColors.BLACK + "Найденные люди (возраст > 20):" + ANSI_RESET);
             if (peopleOver20.isEmpty()) {
