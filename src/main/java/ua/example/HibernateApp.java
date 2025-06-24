@@ -21,14 +21,21 @@ public class HibernateApp {
     public static void main(String[] args) {
         Configuration cfg = new Configuration().addAnnotatedClass(Person.class);
 
-        try (SessionFactory sf = cfg.buildSessionFactory();
-             Session session = sf.getCurrentSession()) {
-            session.beginTransaction();
+        Person person1 = new Person("Человек1", 5);
+        Person person2 = new Person("Человек2", 10);
 
-            System.out.println("Загружаю класс: " + Person.class);
-            Person person = session.get(Person.class, 1L);
-            System.out.println(BackgroundColors.BG_GREEN + ConsoleColors.BLACK + person + ANSI_RESET);
-            session.getTransaction().commit();
+
+        try (SessionFactory sf = cfg.buildSessionFactory();
+                Session session = sf.getCurrentSession()) {
+                session.beginTransaction();
+
+                System.out.println("Загружаю класс: " + Person.class);
+                session.persist(person1);
+                session.persist(person2);
+
+                Person person = session.get(Person.class, 1L);
+                System.out.println(BackgroundColors.BG_GREEN + ConsoleColors.BLACK + person + ANSI_RESET);
+                session.getTransaction().commit();
         }
     }
 }

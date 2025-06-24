@@ -22,7 +22,7 @@ public class Person {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Это говорит хибер забудь про эту колонку она генерируется на стороне постгресса
     Long id;
 
     @Column(name = "name")
@@ -31,9 +31,9 @@ public class Person {
     @Column(name = "age")
     Integer age;
 
-//    public Person(String name, int age) {
-//        this.name = name;
-//        this.age = age;
-//    }
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
 
 }
