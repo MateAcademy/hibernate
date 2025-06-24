@@ -8,6 +8,8 @@ import ua.example.colors.BrightConsoleColors;
 import ua.example.colors.ConsoleColors;
 import ua.example.model.Person;
 
+import java.util.List;
+
 /**
  * Hello world!
  */
@@ -27,16 +29,30 @@ public class HibernateApp {
 
         try (SessionFactory sf = cfg.buildSessionFactory();
                 Session session = sf.getCurrentSession()) {
-                session.beginTransaction();
+//                session.beginTransaction();
+//
+//                System.out.println("Загружаю класс: " + Person.class);
+////                session.persist(person1);
+////                session.persist(person2);
+//
+//                session.persist(newPerson);
+//                session.getTransaction().commit();
+//
+//                System.out.println(BackgroundColors.BG_GREEN + ConsoleColors.BLACK + newPerson.getId() + ANSI_RESET);
 
-                System.out.println("Загружаю класс: " + Person.class);
-//                session.persist(person1);
-//                session.persist(person2);
+            session.beginTransaction();
 
-                session.persist(newPerson);
-                session.getTransaction().commit();
+            System.out.println("\nИщу людей, чей возраст больше 20...");
+            List<Person> peopleOver20 = session.createQuery("FROM Person p WHERE p.age > 20", Person.class).list();
 
-                System.out.println(BackgroundColors.BG_GREEN + ConsoleColors.BLACK + newPerson.getId() + ANSI_RESET);
+            System.out.println(BackgroundColors.BG_GREEN + ConsoleColors.BLACK + "Найденные люди (возраст > 20):" + ANSI_RESET);
+            if (peopleOver20.isEmpty()) {
+                System.out.println("Никто не найден.");
+            } else {
+                peopleOver20.forEach(System.out::println);
+            }
+
+            session.getTransaction().commit();
         }
     }
 }
