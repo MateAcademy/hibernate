@@ -21,7 +21,7 @@ public class HibernateApp {
     public static void main(String[] args) {
         Configuration cfg = new Configuration().addAnnotatedClass(Person.class);
 
-        Person person1 = new Person("1", 50);
+        Person newPerson = new Person("1", 50);
         Person person2 = new Person("Человек2", 10);
 
 
@@ -33,11 +33,10 @@ public class HibernateApp {
 //                session.persist(person1);
 //                session.persist(person2);
 
-                Person person = session.get(Person.class, 1L);
-                person.setName("<UNK> <UNK>");
+                session.persist(newPerson);
 
-                System.out.println(BackgroundColors.BG_GREEN + ConsoleColors.BLACK + person + ANSI_RESET);
                 session.getTransaction().commit();
+            System.out.println(BackgroundColors.BG_GREEN + ConsoleColors.BLACK + newPerson.getId() + ANSI_RESET);
         }
     }
 }
